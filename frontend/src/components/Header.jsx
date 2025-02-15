@@ -1,8 +1,10 @@
 import { FaInstagram, FaYoutube } from "react-icons/fa";
 import category from "../../category";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
+	const [menu, setMenu]=useState('home');
 	return (
 		<>
 			<div className="w-full relative">
@@ -21,12 +23,12 @@ const Header = () => {
 					</div>
 				</div>
 			</div>
-			<div className="mt-50 w-full ">
+			<div className="mt-55 w-full ">
 				<nav>
-					<ul className="flex text-lg text-white justify-between">
-						<li><Link to='/'>Home</Link></li>
+					<ul className="flex text-lg text-white gap-5 justify-center">
+						<li><Link to='/' className={`px-7 py-3 hover:bg-gray-800 ${menu==='home'?'bg-gray-800':''}`} onClick={()=>{setMenu('home')}}>Home</Link></li>
 						{category.map((x)=>(
-							<li key={x._id}><Link to=''>{x.name}</Link></li>
+							<li key={x._id} ><Link to={`/category/${x.name}`} onClick={()=>{setMenu(x.name)}} className={`capitalize px-7 py-3 hover:bg-gray-800 ${menu===x.name?'bg-gray-800':''}`}>{x.name}</Link></li>
 						))}
 					</ul>
 				</nav>

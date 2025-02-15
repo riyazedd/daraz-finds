@@ -1,7 +1,7 @@
 const category=[
     {
         _id:1,
-        name:"Dashain Dhamaka"
+        name:"dashain dhamaka"
     },
     {
         _id:2,
@@ -9,7 +9,7 @@ const category=[
     },
     {
         _id:3,
-        name:"Black Friday"
+        name:"black friday"
     },
 ]
 

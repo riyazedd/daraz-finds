@@ -4,11 +4,13 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import './index.css'
 import App from './App.jsx'
 import HomePage from './pages/HomePage.jsx'
+import CategoryPage from './pages/CategoryPage.jsx'
 
 const router= createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index="true" path='/' element={<HomePage />} />
+      <Route path='/category/:categoryName' element={<CategoryPage/>} />
     </Route>
   )
 )
