@@ -22,6 +22,12 @@ const getProductById=async(req,res)=>{
 const addProduct = async (req, res) => {
     try {
         let products = req.body;
+        
+        console.log("Incoming product data:", products); // Debugging log
+
+        if (!products || (Array.isArray(products) && products.length === 0)) {
+            return res.status(400).json({ success: false, message: "No product data provided" });
+        }
 
         if (!Array.isArray(products)) {
             products = [products];
@@ -29,11 +35,13 @@ const addProduct = async (req, res) => {
 
         const createdProducts = await Product.insertMany(products);
 
-        res.status(200).json({ success: true, products: createdProducts });
+        res.status(201).json({ success: true, products: createdProducts });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error("Error inserting product:", err.message);
+        res.status(500).json({ success: false, message: err.message });
     }
 };
+
 
 const updateProduct = async (req, res) => {
     try {

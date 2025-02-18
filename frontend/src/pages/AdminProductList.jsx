@@ -44,6 +44,17 @@ const AdminProductList = () => {
     return category ? category.name : "Unknown";
   };
 
+  const remove = (id) => {
+    confirm("Do you want to delete this product?")
+    try {
+      API.delete(`/api/products/${id}`);
+      setProducts(products.filter(product => product._id !== id));
+      alert('Product Deleted Successfully');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -113,7 +124,7 @@ const AdminProductList = () => {
                         <FaEdit />
                       </button>
                     </Link>
-                    <button className="ml-2 text-white bg-red-600 p-2 rounded-md hover:bg-red-500">
+                    <button onClick={()=>remove(product._id)} className="ml-2 text-white bg-red-600 p-2 rounded-md hover:bg-red-500">
                       <FaTrash />
                     </button>
                   </td>

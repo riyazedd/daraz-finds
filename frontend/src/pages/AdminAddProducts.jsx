@@ -6,6 +6,7 @@ import { fetchImage } from "../utils/productImage.js"; // ✅ Import utility fun
 const AdminAddProducts = () => {
   const [categories, setCategory] = useState([]);
   const [productLink, setProductLink] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [imageUrl, setImageUrl] = useState("/sampleProduct.jpg");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,6 +37,35 @@ const AdminAddProducts = () => {
     setLoading(false);
   };
 
+  const insertProduct = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await API.post(
+        "/api/products",
+        {
+          product_link: productLink,
+          category: categoryId
+        },
+        {
+          headers: { "Content-Type": "application/json" } 
+        }
+      );
+  
+      if (response.data.success) {
+        alert("Product Added Successfully!");
+        setProductLink("");
+        setCategoryId("");
+        setImageUrl("/sampleProduct.jpg");
+      } else {
+        alert("Cannot add product!");
+      }
+    } catch (err) {
+      console.error("Error adding product:", err.response?.data || err.message);
+      alert("Error adding product: " + err.response?.data?.message || err.message);
+    }
+  };
+  
   return (
     <div>
       <div className="mb-4">
@@ -49,7 +79,7 @@ const AdminAddProducts = () => {
       <div className="flex w-full gap-10">
       <div className="bg-white border rounded-lg shadow relative mt-10 w-1/2">
         <div className="p-6 space-y-6">
-          <form>
+          <form onSubmit={insertProduct}>
             <div className="flex flex-col">
               <div className="">
                 <label
@@ -81,6 +111,7 @@ const AdminAddProducts = () => {
                 </label>
                 <select
                   name="category"
+                  onChange={(e)=>setCategoryId(e.target.value)}
                   id="category"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   required
@@ -94,12 +125,6 @@ const AdminAddProducts = () => {
                 </select>
               </div>
             </div>
-          </form>
-
-         
-          
-        </div>
-
         <div className="p-6 border-t border-gray-200 rounded-b">
           <button
             className="hover:cursor-pointer text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -108,6 +133,12 @@ const AdminAddProducts = () => {
             Add
           </button>
         </div>
+          </form>
+
+         
+          
+        </div>
+
       </div>
       <div className="mt-10">
             {loading ? (
