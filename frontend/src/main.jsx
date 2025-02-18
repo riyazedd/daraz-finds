@@ -7,6 +7,9 @@ import AdminLayout from './AdminLayout.jsx'
 import HomePage from './pages/HomePage.jsx'
 import CategoryPage from './pages/CategoryPage.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
+import AdminProductList from './pages/AdminProductList.jsx'
+import AdminAddProducts from './pages/AdminAddProducts.jsx'
+import AdminEditProduct from './pages/AdminEditProduct.jsx'
 
 const router= createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +20,9 @@ const router= createBrowserRouter(
     </Route>
     <Route element={<AdminLayout />}>
         <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/productlist" element={<AdminProductList />} />
+        <Route path="/admin/addproducts" element={<AdminAddProducts />} />
+        <Route path="/admin/editproduct/:id" element={<AdminEditProduct/>} />
       </Route>
     </>
   )

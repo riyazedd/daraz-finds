@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // ✅ Import axios
+import { fetchImage } from "../utils/productImage";
 
-const Card = ({ product }) => {
+const Card = ({ product }) => { 
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // ✅ Added missing states
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const handleScrapeImage = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/scrape-image", {
-          params: { url: product.product_link }, // ✅ Use product.product_link directly
-        });
-
-        if (response.data.imageUrl) {
-          setImageUrl(response.data.imageUrl);
-        } else {
-          setError("Image not found");
-        }
-      } catch (err) {
-        setError("Failed to fetch image");
-        console.error(err);
-      } finally {
+    const loadImage = async () => {
+      if (product.product_link) {
+        setLoading(true);
+        const { imageUrl, error } = await fetchImage(product.product_link);
+        setImageUrl(imageUrl);
+        setError(error);
         setLoading(false);
       }
     };
 
-    if (product.product_link) {
-      handleScrapeImage(); // ✅ Only run if product_link is valid
-    }
-  }, [product.product_link]); // ✅ Added dependency array
+    loadImage();
+  }, [product.product_link]);
 
   return (
     <div className="w-[200px]">
