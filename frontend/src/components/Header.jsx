@@ -1,12 +1,20 @@
 import { FaInstagram, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi"; // Mobile menu icons
-import category from "../../category";
+// import category from "../../category";
+import API from "../API";
 
 const Header = () => {
 	const [menu, setMenu] = useState("home");
 	const [isOpen, setIsOpen] = useState(false); // Mobile menu state
+	const [category,setCategory]=useState([])
+
+	useEffect(()=>{
+		API.get('/api/category').then(res=>{
+			setCategory(res.data)
+		})
+	},[])
 
 	return (
 		<>
@@ -47,7 +55,7 @@ const Header = () => {
 						{category.map((x) => (
 							<li key={x._id}>
 								<Link
-									to={`/category/${x.name}`}
+									to={`/category/${x._id}`}
 									onClick={() => setMenu(x.name)}
 									className={`capitalize px-7 py-3 hover:bg-gray-800 rounded-lg transition ${
 										menu === x.name ? "bg-gray-800" : ""
