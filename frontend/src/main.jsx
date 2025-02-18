@@ -10,6 +10,9 @@ import AdminLogin from './pages/AdminLogin.jsx'
 import AdminProductList from './pages/AdminProductList.jsx'
 import AdminAddProducts from './pages/AdminAddProducts.jsx'
 import AdminEditProduct from './pages/AdminEditProduct.jsx'
+import AdminCategoryList from './pages/AdminCategoryList.jsx'
+import AdminAddCategory from './pages/AdminAddCategory.jsx'
+import AdminEditCategory from './pages/AdminEditCategory.jsx'
 
 const router= createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +26,9 @@ const router= createBrowserRouter(
         <Route path="/admin/productlist" element={<AdminProductList />} />
         <Route path="/admin/addproducts" element={<AdminAddProducts />} />
         <Route path="/admin/editproduct/:id" element={<AdminEditProduct/>} />
+        <Route path="/admin/categorylist" element={<AdminCategoryList/>} />
+        <Route path="/admin/addcategory" element={<AdminAddCategory/>} />
+        <Route path="/admin/editcategory/:id" element={<AdminEditCategory/>} />
       </Route>
     </>
   )

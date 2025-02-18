@@ -11,7 +11,7 @@ const AdminHeader = () => {
         <div>
             <ul className='flex gap-5'>
                 <li> <a href="/admin/productlist" className='flex items-center gap-2'>Products</a> </li>
-                <li > <a href="/admin/category" className='flex items-center gap-2'>Category</a> </li>
+                <li > <a href="/admin/categorylist" className='flex items-center gap-2'>Category</a> </li>
                 <li > <button className=''>Logout</button> </li>
             </ul>
         </div>
