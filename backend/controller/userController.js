@@ -24,7 +24,8 @@ const authUser = async (req, res) => {
             _id:user._id,
             username:user.username,
             email:user.email,
-            isAdmin:user.isAdmin
+            isAdmin:user.isAdmin,
+            token:token
         })
     }else{
         res.status(401).json({message:'Invalid email or password'})

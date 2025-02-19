@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';  
 import API from '../API.jsx';
 import { toast } from 'react-toastify';
 
@@ -8,6 +9,7 @@ const AdminLogin = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth(); // Use AuthContext
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -15,10 +17,9 @@ const AdminLogin = () => {
 
         try {
             const { data } = await API.post('/api/users/login', { email, password });
-            // console.log(data);
 
-            // Store token in localStorage
-            localStorage.setItem('adminToken', data.token);
+            // Store token using AuthContext
+            login(data.token);
 
             toast.success('Login successful');
             navigate('/admin/productlist');
@@ -30,7 +31,7 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="w-full">
+        <div className="w-full flex justify-center items-center h-screen">
             <div className="w-1/2 bg-white rounded-lg overflow-hidden shadow-lg mx-auto">
                 <div className="p-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">Welcome Admin!</h2>
@@ -74,9 +75,6 @@ const AdminLogin = () => {
                             >
                                 {loading ? 'Signing In...' : 'Sign In'}
                             </button>
-                            <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                                Forgot Password?
-                            </a>
                         </div>
                     </form>
                 </div>
