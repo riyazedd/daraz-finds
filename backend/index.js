@@ -4,9 +4,11 @@ import dotenv from 'dotenv'
 dotenv.config();
 import axios from 'axios'
 import * as cheerio from 'cheerio';
+import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
+import userRoutes from './routes/userRoutes.js'
  const port=process.env.PORT || 3000
 
 connectDB();
@@ -16,6 +18,9 @@ app.use(cors())
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
+//cookie parser middleware
+app.use(cookieParser());
+
 
 app.get('/',(req,res)=>{
     res.send('Api is running');
@@ -23,6 +28,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/products', productRoutes);
 app.use('/api/category', categoryRoutes);
+app.use('/api/users',userRoutes)
 
 // Endpoint to scrape product image
 app.get('/scrape-image', async (req, res) => {
