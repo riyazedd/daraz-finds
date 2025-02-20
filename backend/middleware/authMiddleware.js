@@ -2,24 +2,35 @@ import jwt from 'jsonwebtoken'
 import User from '../models/userModel.js'
 
 //protect routes
-const protect = async(req,res)=>{
-    let token;
 
-    //read jwt from cookie
-    token=req.cookies.jwt;
+const protect = async (req, res, next) => {
+    let token = req.cookies?.jwt; // Read from cookies
+    console.log("Token from request:", token); // Debugging
 
-    if(token){
-        try{
-            const decoded=jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await User.findById(decoded.userId).select('-password');
-            next();
-        }catch(err){
-            res.status(401).json({message:'not authorized! token failed'})
-        }
-    }else{
-        res.status(401).json({message:'not authorized! no token'})
+    if (!token) {
+        return res.status(401).json({ message: "Not authorized, no token" });
     }
-}
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("Decoded token:", decoded); // Debugging
+
+        req.user = await User.findById(decoded.userId).select("-password");
+        console.log(req.user);
+
+        if (!req.user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        next();
+    } catch (error) {
+        console.error("Token verification error:", error);
+        res.status(401).json({ message: "Not authorized, invalid token" });
+    }
+};
+
+
+
 
 //admin middleware
 const admin = (req,res,next)=>{

@@ -17,6 +17,7 @@ import AdminEditCategory from "./pages/AdminEditCategory";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminEditProfile from "./pages/AdminEditProfile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
           <Route path="/admin/categorylist" element={<AdminCategoryList />} />
           <Route path="/admin/addcategory" element={<AdminAddCategory />} />
           <Route path="/admin/editcategory/:id" element={<AdminEditCategory />} />
+          <Route path="/admin/updateprofile" element={<AdminEditProfile />} />
         </Route>
       </Route>
     </>
