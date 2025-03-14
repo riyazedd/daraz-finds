@@ -1,28 +1,28 @@
-import Product from '../models/productModel.js'
+const Product = require('../models/productModel.js');
 
 const getProducts = async (req, res) => {
     try {
         const products = await Product.find({});
-	    res.json(products);
+        res.json(products);
     } catch (err) {
         console.error("Error fetching products:", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
 
-const getProductById=async(req,res)=>{
+const getProductById = async (req, res) => {
     const product = await Product.findById(req.params.id);
-    if(product){
-        return res.json(product)
+    if (product) {
+        return res.json(product);
     }
 
-    res.status(404).json({message:"Product not found"})
-}
+    res.status(404).json({ message: "Product not found" });
+};
 
 const addProduct = async (req, res) => {
     try {
         let products = req.body;
-        
+
         console.log("Incoming product data:", products); // Debugging log
 
         if (!products || (Array.isArray(products) && products.length === 0)) {
@@ -42,7 +42,6 @@ const addProduct = async (req, res) => {
     }
 };
 
-
 const updateProduct = async (req, res) => {
     try {
         const id = req.params.id;
@@ -55,13 +54,14 @@ const updateProduct = async (req, res) => {
     }
 };
 
-const deleteProduct=async(req,res)=>{
+const deleteProduct = async (req, res) => {
     try {
-            let id = req.params.id;
-            await Product.findByIdAndDelete(id);
-            res.status(200).json({ message: "Product Deleted Succesfully" });
-        } catch (err) {
-            res.status(500).json({ message: err.message });
-        }   
-}
-export {getProducts,getProductById,addProduct,updateProduct,deleteProduct}
+        let id = req.params.id;
+        await Product.findByIdAndDelete(id);
+        res.status(200).json({ message: "Product Deleted Successfully" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+module.exports = { getProducts, getProductById, addProduct, updateProduct, deleteProduct };

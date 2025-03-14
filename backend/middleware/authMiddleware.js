@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken'
-import User from '../models/userModel.js'
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel.js');
 
 //protect routes
-
 const protect = async (req, res, next) => {
     let token = req.cookies?.jwt; // Read from cookies
     console.log("Token from request:", token); // Debugging
@@ -29,16 +28,13 @@ const protect = async (req, res, next) => {
     }
 };
 
-
-
-
 //admin middleware
-const admin = (req,res,next)=>{
-    if(req.user && req.user.isAdmin){
-        next()
-    }else{
-         res.status(401).json({message:'not authorizedas admin'})
+const admin = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).json({ message: 'not authorized as admin' });
     }
-}
+};
 
-export {protect,admin};
+module.exports = { protect, admin };

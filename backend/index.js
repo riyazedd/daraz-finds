@@ -1,37 +1,34 @@
-import express from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
 dotenv.config();
-import axios from 'axios'
-import * as cheerio from 'cheerio';
-import cookieParser from 'cookie-parser';
-import connectDB from './config/db.js';
-import productRoutes from './routes/productRoutes.js'
-import categoryRoutes from './routes/categoryRoutes.js'
-import userRoutes from './routes/userRoutes.js'
- const port=process.env.PORT || 3000
+const axios = require('axios');
+const cheerio = require('cheerio');
+const cookieParser = require('cookie-parser');
+const connectDB = require('./config/db.js');
+const productRoutes = require('./routes/productRoutes.js');
+const categoryRoutes = require('./routes/categoryRoutes.js');
+const userRoutes = require('./routes/userRoutes.js');
+const path = require('path');
+
+const port = process.env.PORT || 3000;
 
 connectDB();
 
-const app =express();
+const app = express();
 app.use(cors({
     origin: 'http://localhost:5173', // Explicitly allow your frontend origin
     credentials: true // Allow cookies to be sent
 }));
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //cookie parser middleware
 app.use(cookieParser());
 
-
-app.get('/',(req,res)=>{
-    res.send('Api is running');
-})
-
 app.use('/api/products', productRoutes);
 app.use('/api/category', categoryRoutes);
-app.use('/api/users',userRoutes)
+app.use('/api/users', userRoutes);
 
 // Endpoint to scrape product image
 app.get('/scrape-image', async (req, res) => {
@@ -60,10 +57,20 @@ app.get('/scrape-image', async (req, res) => {
     }
 });
 
-app.listen(port ,(err)=>{
-    if(err){
-        console.error('Error starting server:'+err.message)
-    }else{
-        console.log('Server running on port:'+port)
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')));
+} else {
+    app.get('/', (req, res) => {
+        res.send('Api is running');
+    });
+}
+
+app.listen(port, (err) => {
+    if (err) {
+        console.error('Error starting server:' + err.message);
+    } else {
+        console.log('Server running on port:' + port);
     }
-})
+});

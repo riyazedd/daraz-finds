@@ -1,6 +1,6 @@
-import User from "../models/userModel.js";
-import jwt from 'jsonwebtoken';
-// import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
+const User = require("../models/userModel.js");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // Import bcrypt for password hashing
 
 // Get logged-in user profile
 const getProfile = async (req, res) => {
@@ -63,8 +63,6 @@ const logoutUser = async (req, res) => {
 };
 
 // Update profile
-import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
-
 const updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
@@ -95,5 +93,4 @@ const updateProfile = async (req, res) => {
     }
 };
 
-
-export { getProfile, authUser, logoutUser, updateProfile };
+module.exports = { getProfile, authUser, logoutUser, updateProfile };

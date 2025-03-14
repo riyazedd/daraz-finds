@@ -1,17 +1,17 @@
-import Category from '../models/categoryModel.js'
+const Category = require('../models/categoryModel.js');
 
 const getCategory = async (req, res) => {
-	const category = await Category.find({});
-	res.json(category);
+    const category = await Category.find({});
+    res.json(category);
 };
 
 const getCategoryById = async (req, res) => {
-	const category = await Category.findById(req.params.id);
+    const category = await Category.findById(req.params.id);
 
-	if (category) {
-		return res.json(category);
-	}
-	res.status(404).json({ message: "Category not found" });
+    if (category) {
+        return res.json(category);
+    }
+    res.status(404).json({ message: "Category not found" });
 };
 
 const addCategory = async (req, res) => {
@@ -27,8 +27,8 @@ const addCategory = async (req, res) => {
     }
 };
 
-const updateCategory=async(req,res)=>{
-	try {
+const updateCategory = async (req, res) => {
+    try {
         const id = req.params.id;
 
         await Category.findByIdAndUpdate(id, req.body);
@@ -37,16 +37,16 @@ const updateCategory=async(req,res)=>{
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
 
-const deleteCategory=async(req,res)=>{
+const deleteCategory = async (req, res) => {
     try {
-            let id = req.params.id;
-            await Category.findByIdAndDelete(id);
-            res.status(200).json({ message: "Category Deleted Succesfully" });
-        } catch (err) {
-            res.status(500).json({ message: err.message });
-        }   
-}
+        let id = req.params.id;
+        await Category.findByIdAndDelete(id);
+        res.status(200).json({ message: "Category Deleted Successfully" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
 
-export { getCategory, getCategoryById, addCategory, updateCategory, deleteCategory };
+module.exports = { getCategory, getCategoryById, addCategory, updateCategory, deleteCategory };
