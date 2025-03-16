@@ -11,11 +11,11 @@ const AdminProductList = () => {
 
   useEffect(() => {
     try {
-      API.get(" products").then((res) => {
+      API.get("/api/products").then((res) => {
         setProducts(res.data);
       });
 
-      API.get(" category").then((res) => {
+      API.get("/api/category").then((res) => {
         setCategory(res.data);
       });
     } catch (err) {
@@ -47,7 +47,7 @@ const AdminProductList = () => {
   const remove = (id) => {
     confirm("Do you want to delete this product?")
     try {
-      API.delete(` products/${id}`);
+      API.delete(`/api/products/${id}`);
       setProducts(products.filter(product => product._id !== id));
       alert('Product Deleted Successfully');
     } catch (err) {

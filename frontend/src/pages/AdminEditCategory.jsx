@@ -8,7 +8,7 @@ const AdminEditCategory = () => {
     const [categoryName,setCategoryName]=useState('');
 
     useEffect(()=>{
-        API.get(` category/${id}`).then(res=>{
+        API.get(`/api/category/${id}`).then(res=>{
             setCategoryName(res.data.name)
         })
     },[id])
@@ -16,7 +16,7 @@ const AdminEditCategory = () => {
     const updateCategory = async (e) => {
         e.preventDefault();
         try {
-            const response = await API.put(` category/${id}`, { name: categoryName });
+            const response = await API.put(`/api/category/${id}`, { name: categoryName });
             
             if (response.data.success) {
                 alert('Category updated Successfully!');

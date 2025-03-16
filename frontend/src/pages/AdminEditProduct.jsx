@@ -16,14 +16,14 @@ const AdminEditProduct = () => {
 
   useEffect(() => {
     // Fetch product details
-    API.get(` products/${id}`).then((res) => {
+    API.get(`/api/products/${id}`).then((res) => {
       setProduct(res.data);
       setProductLink(res.data.product_link);
       setCategoryId(res.data.category);  // ✅ Set category ID from fetched product
     });
   
     // Fetch categories
-    API.get(" category").then((res) => {
+    API.get("/api/category").then((res) => {
       setCategory(res.data);
     });
   }, [id]);
@@ -57,7 +57,7 @@ const AdminEditProduct = () => {
   
     try {
       const response = await API.put(
-        ` products/${id}`,
+        `/api/products/${id}`,
         {
           product_link: productLink,
           category: categoryId

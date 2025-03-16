@@ -9,7 +9,7 @@ const HomePage = () => {
 
   useEffect(()=>{
     
-    API.get(' products').then(res=>{
+    API.get( '/api/products').then(res=>{
       setProducts(res.data)
     })
   },[])

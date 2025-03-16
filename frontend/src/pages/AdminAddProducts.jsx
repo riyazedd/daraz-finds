@@ -13,7 +13,7 @@ const AdminAddProducts = () => {
 
   useEffect(() => {
     try {
-      API.get(" category").then((res) => {
+      API.get("/api/category").then((res) => {
         setCategory(res.data);
       });
     } catch (err) {
@@ -42,7 +42,7 @@ const AdminAddProducts = () => {
   
     try {
       const response = await API.post(
-        " products",
+        "/api/products",
         {
           product_link: productLink,
           category: categoryId
