@@ -18,7 +18,7 @@ const AdminEditProfile = () => {
         // Fetch current user details
         const fetchUserProfile = async () => {
             try {
-                const { data } = await API.get('/api/users/profile', {
+                const { data } = await API.get(' users/profile', {
                     withCredentials: true
                 });
                 setUser({
@@ -49,7 +49,7 @@ const AdminEditProfile = () => {
         if (!isConfirmed) return;
 
         try {
-            await API.put('/api/users/editprofile', {
+            await API.put(' users/editprofile', {
                 username: user.username,    
                 email: user.email,
                 password: user.password

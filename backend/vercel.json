@@ -4,9 +4,6 @@
     { "src": "index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/index.js" }
-  ],
-  "functions": {
-    "index.js": { "maxDuration": 10 }
-  }
+    { "src": " (.*)", "dest": "/index.js" }
+  ]
 }

@@ -8,7 +8,7 @@ const AdminCategoryList = () => {
 
     useEffect(()=>{
         try{
-            API.get('/api/category').then(res=>{
+            API.get(' category').then(res=>{
                 setCategory(res.data)
             })
         }catch(err){
@@ -19,7 +19,7 @@ const AdminCategoryList = () => {
     const remove = (id) => {
         confirm("Do you want to delete this category?")
         try {
-          API.delete(`/api/category/${id}`);
+          API.delete(` category/${id}`);
           setCategory(categories.filter(category => category._id !== id));
           alert('Category Deleted Successfully');
         } catch (err) {

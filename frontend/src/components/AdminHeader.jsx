@@ -8,7 +8,7 @@ const AdminHeader = () => {
 
   const logoutHandler = async () => {
     try {
-      await API.post('/api/users/logout');
+      await API.post(' users/logout');
       localStorage.removeItem('adminToken');
       navigate('/admin');
     } catch (error) {

@@ -8,7 +8,7 @@ const AdminAddCategory = () => {
     const insertCategory = async (e) => {
         e.preventDefault();
         try {
-            const response = await API.post('/api/category', [{ name: categoryName }]);
+            const response = await API.post(' category', [{ name: categoryName }]);
             
             if (response.data.success) {
                 alert('Category Added Successfully!');

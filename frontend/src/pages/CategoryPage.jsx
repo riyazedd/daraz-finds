@@ -14,7 +14,7 @@ const CategoryPage = () => {
     if (!id) return; 
 
     setLoading(true);
-    API.get('/api/products')
+    API.get(' products')
       .then((res) => {
         console.log("Fetched Products:", res.data);
         setProducts(res.data);

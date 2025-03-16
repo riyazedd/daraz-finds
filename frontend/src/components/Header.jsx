@@ -11,7 +11,7 @@ const Header = () => {
 	const [category,setCategory]=useState([])
 
 	useEffect(()=>{
-		API.get('/api/category').then(res=>{
+		API.get('category').then(res=>{
 			setCategory(res.data)
 		})
 	},[])

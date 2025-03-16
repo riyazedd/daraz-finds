@@ -16,7 +16,7 @@ const AdminLogin = () => {
         setLoading(true);
 
         try {
-            const { data } = await API.post('/api/users/login', { email, password });
+            const { data } = await API.post(' users/login', { email, password });
 
             // Store token using AuthContext
             login(data.token);

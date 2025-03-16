@@ -27,9 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 //cookie parser middleware
 app.use(cookieParser());
 
-app.use('/api/products', productRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/api/users', userRoutes);
+app.use('/products', productRoutes);
+app.use('/category', categoryRoutes);
+app.use('/users', userRoutes);
 
 // Endpoint to scrape product image
 app.get('/scrape-image', async (req, res) => {
