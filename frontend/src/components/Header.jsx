@@ -15,7 +15,7 @@ const Header = () => {
 			setCategory(res.data)
 		})
 	},[])
-
+	
 	return (
 		<>
 			{/* Banner Section */}
