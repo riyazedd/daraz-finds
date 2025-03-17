@@ -4,7 +4,7 @@
   "description": "websites where you can find daraz products",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon backend/index.js",
+    "start": "node backend/index.js",
     "data:import": "node backend/seeder.js",
     "data:destroy": "node backend/seeder.js -d",
     "build":"npm install && npm install --prefix frontend && npm run build --prefix frontend"
